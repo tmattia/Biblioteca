@@ -2,14 +2,19 @@ package com.twu.biblioteca;
 
 public class Application {
 	
-	Printer printer;
+	public final static String WELCOME_MESSAGE = "Welcome to the Bangalore Public Library System!";
 	
-	public Application(Printer printer) {
+	Printer printer;
+	Menu menu;
+	
+	public Application(Printer printer, Menu menu) {
 		this.printer = printer;
+		this.menu = menu;
 	}
 	
 	public void start() {
-		printer.println("Welcome to the Bangalore Public Library System!");
+		printer.println(WELCOME_MESSAGE);
+		printer.println(menu.toString());
 	}
 
 }
