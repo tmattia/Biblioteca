@@ -17,5 +17,23 @@ public class Menu {
 		}
 		return ret;
 	}
+
+	public boolean isValidOption(int optionKey) {
+		for (MenuOption option : options) {
+			if (option.getKey() == optionKey) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public MenuOption getOption(int optionKey) {
+		for (MenuOption option : options) {
+			if (option.getKey() == optionKey) {
+				return option;
+			}
+		}
+		return null;
+	}
 	
 }
