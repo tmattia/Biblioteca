@@ -6,19 +6,19 @@ public class ListBooksAction implements Action {
 	
 	final static public String LIST_OF_BOOKS_MSG = "List of Books in the library:";
 	
-	private Printer printer;
+	private Console console;
 	private ArrayList<Book> booksList;
 
-	public ListBooksAction(Printer printer, ArrayList<Book> booksList) {
-		this.printer = printer;
+	public ListBooksAction(Console console, ArrayList<Book> booksList) {
+		this.console = console;
 		this.booksList = booksList;
 	}
 
 	@Override
 	public void execute() {
-		printer.println(LIST_OF_BOOKS_MSG);
+		console.println(LIST_OF_BOOKS_MSG);
 		for (Book book : booksList) {
-			printer.println(book.toString());
+			console.println(book.toString());
 		}
 	}
 

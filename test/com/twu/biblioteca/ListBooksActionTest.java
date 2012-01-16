@@ -15,7 +15,7 @@ public class ListBooksActionTest {
 		final String FIRST_BOOK = "1. First Book";
 		final String SECOND_BOOK = "1. Second Book";
 		
-		Printer mockedPrinter = mock(Printer.class);
+		Console mockedConsole = mock(Console.class);
 		Book mockedBook1 = mock(Book.class);
 		when(mockedBook1.toString()).thenReturn(FIRST_BOOK);
 		Book mockedBook2 = mock(Book.class);
@@ -24,12 +24,12 @@ public class ListBooksActionTest {
 		ArrayList<Book> booksList = new ArrayList<Book>();
 		booksList.add(mockedBook1);
 		booksList.add(mockedBook2);
-		ListBooksAction listBooksAction = new ListBooksAction(mockedPrinter, booksList);
+		ListBooksAction listBooksAction = new ListBooksAction(mockedConsole, booksList);
 		listBooksAction.execute();
 
-		verify(mockedPrinter).println(ListBooksAction.LIST_OF_BOOKS_MSG);
-		verify(mockedPrinter).println(FIRST_BOOK);
-		verify(mockedPrinter).println(SECOND_BOOK);
+		verify(mockedConsole).println(ListBooksAction.LIST_OF_BOOKS_MSG);
+		verify(mockedConsole).println(FIRST_BOOK);
+		verify(mockedConsole).println(SECOND_BOOK);
 	}
 
 }

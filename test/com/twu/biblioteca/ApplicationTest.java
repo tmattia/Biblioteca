@@ -9,24 +9,22 @@ import org.junit.Test;
 
 public class ApplicationTest {
 	
-	Printer mockedPrinter;
+	Console mockedConsole;
 	Menu mockedMenu;
-	InputReader mockedInputReader;
 	Application app;
 	
 	@Before
 	public void setUp() {
-		mockedPrinter = mock(Printer.class);
+		mockedConsole = mock(Console.class);
 		mockedMenu = mock(Menu.class);
-		mockedInputReader = mock(InputReader.class);
-		app = new Application(mockedPrinter, mockedMenu, mockedInputReader);
+		app = new Application(mockedConsole, mockedMenu);
 	}
 	
 	@Test
 	public void shouldShowAnWelcomeMessageWhenApplicationStarts() {
 		app.start();
 		
-		verify(mockedPrinter).println(Application.WELCOME_MSG);
+		verify(mockedConsole).println(Application.WELCOME_MSG);
 	}
 	
 	@Test
@@ -36,27 +34,27 @@ public class ApplicationTest {
 		
 		app.start();
 		
-		verify(mockedPrinter).println(FAKE_LIST_OF_OPTIONS);
+		verify(mockedConsole).println(FAKE_LIST_OF_OPTIONS);
 	}
 	
 	@Test
 	public void shouldPromptForOptionSelectionWhenApplicationStarts() {
 		app.start();
 		
-		verify(mockedPrinter).println(Application.SELECT_OPTION_MSG);
-		verify(mockedInputReader).readInteger();
+		verify(mockedConsole).println(Application.SELECT_OPTION_MSG);
+		verify(mockedConsole).readInteger();
 	}
 	
 	@Test
 	public void shouldShowNotificationWhenInvalidOptionIsSelected() {
 		final int INVALID_OPTION_KEY = 100;
 		
-		when(mockedInputReader.readInteger()).thenReturn(INVALID_OPTION_KEY);
+		when(mockedConsole.readInteger()).thenReturn(INVALID_OPTION_KEY);
 		when(mockedMenu.isValidOption(INVALID_OPTION_KEY)).thenReturn(false);
 		
 		app.start();
 		
-		verify(mockedPrinter).println(Application.INVALID_OPTION_MSG);
+		verify(mockedConsole).println(Application.INVALID_OPTION_MSG);
 	}
 	
 	@Test
@@ -64,7 +62,7 @@ public class ApplicationTest {
 		final int OPTION_KEY = 1;
 		MenuOption mockedOption = mock(MenuOption.class);
 		
-		when(mockedInputReader.readInteger()).thenReturn(OPTION_KEY);
+		when(mockedConsole.readInteger()).thenReturn(OPTION_KEY);
 		when(mockedMenu.isValidOption(OPTION_KEY)).thenReturn(true);
 		when(mockedMenu.getOption(OPTION_KEY)).thenReturn(mockedOption);
 		app.start();
