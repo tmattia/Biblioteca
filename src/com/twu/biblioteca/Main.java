@@ -16,8 +16,12 @@ public class Main {
 		ListBooksAction listBooksAction = new ListBooksAction(console, booksList);
 		MenuOption listBooksOption = new MenuOption(1, "List books", listBooksAction);
 		
+		CheckLibraryNumberAction checkLibraryNumberAction = new CheckLibraryNumberAction(console);
+		MenuOption checkLibraryNumberOption = new MenuOption(2, "Check Library number", checkLibraryNumberAction);
+		
 		ArrayList<MenuOption> options = new ArrayList<MenuOption>();
 		options.add(listBooksOption);
+		options.add(checkLibraryNumberOption);
 		Menu menu = new Menu(options);
 		
 		Application app = new Application(console, menu);
