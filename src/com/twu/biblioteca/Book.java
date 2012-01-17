@@ -14,4 +14,8 @@ public class Book {
 		return number + ". " + description;
 	}
 
+	public int getNumber() {
+		return number;
+	}
+
 }
