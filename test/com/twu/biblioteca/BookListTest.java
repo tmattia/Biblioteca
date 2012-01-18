@@ -25,14 +25,16 @@ public class BookListTest {
 	
 	@Test
 	public void shouldNotFindBookByNumberIfBookIsNotOnList() {
-		final int BOOK_NUMBER = 1;
+		final int BOOK_ON_LIST_NUMBER = 1;
+		final int BOOK_NOT_ON_LIST_NUMBER = 2;
 		
 		Book mockedBook = mock(Book.class);
-		when(mockedBook.getNumber()).thenReturn(BOOK_NUMBER);
+		when(mockedBook.getNumber()).thenReturn(BOOK_ON_LIST_NUMBER);
 		
 		BookList bookList = new BookList();
+		bookList.add(mockedBook);
 		
-		assertFalse(bookList.contains(BOOK_NUMBER));
+		assertFalse(bookList.contains(BOOK_NOT_ON_LIST_NUMBER));
 	}
 
 }
