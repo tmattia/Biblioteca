@@ -3,6 +3,7 @@ package com.twu.biblioteca;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.anyInt;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,10 +48,7 @@ public class ApplicationTest {
 	
 	@Test
 	public void shouldShowNotificationWhenInvalidOptionIsSelected() {
-		final int INVALID_OPTION_KEY = 100;
-		
-		when(mockedConsole.readInteger()).thenReturn(INVALID_OPTION_KEY);
-		when(mockedMenu.isValidOption(INVALID_OPTION_KEY)).thenReturn(false);
+		when(mockedMenu.isValidOption(anyInt())).thenReturn(false);
 		
 		app.start();
 		
@@ -59,12 +57,10 @@ public class ApplicationTest {
 	
 	@Test
 	public void shouldExecuteOptionWhenOptionIsSelected() {
-		final int OPTION_KEY = 1;
 		MenuOption mockedOption = mock(MenuOption.class);
+		when(mockedMenu.isValidOption(anyInt())).thenReturn(true);
+		when(mockedMenu.getOption(anyInt())).thenReturn(mockedOption);
 		
-		when(mockedConsole.readInteger()).thenReturn(OPTION_KEY);
-		when(mockedMenu.isValidOption(OPTION_KEY)).thenReturn(true);
-		when(mockedMenu.getOption(OPTION_KEY)).thenReturn(mockedOption);
 		app.start();
 		
 		verify(mockedOption).execute();
