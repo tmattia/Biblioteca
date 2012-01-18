@@ -1,9 +1,6 @@
 package com.twu.biblioteca;
 
 import static org.mockito.Mockito.*;
-import static org.mockito.Matchers.anyInt;
-
-import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
