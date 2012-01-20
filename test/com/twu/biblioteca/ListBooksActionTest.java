@@ -1,35 +1,28 @@
 package com.twu.biblioteca;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
+import static org.mockito.Mockito.inOrder;
 
 import org.junit.Test;
+import org.mockito.InOrder;
 
 public class ListBooksActionTest {
 	
 	@Test
 	public void shouldListBooks() {
-		final String FIRST_BOOK = "1. First Book";
-		final String SECOND_BOOK = "1. Second Book";
+		final String FAKE_BOOK_LIST = "Fake book list";
 		
 		Console mockedConsole = mock(Console.class);
-		Book mockedBook1 = mock(Book.class);
-		when(mockedBook1.toString()).thenReturn(FIRST_BOOK);
-		Book mockedBook2 = mock(Book.class);
-		when(mockedBook2.toString()).thenReturn(SECOND_BOOK);
+		BookList mockedBookList = mock(BookList.class);
+		when(mockedBookList.toString()).thenReturn(FAKE_BOOK_LIST);
 		
-		ArrayList<Book> booksList = new ArrayList<Book>();
-		booksList.add(mockedBook1);
-		booksList.add(mockedBook2);
-		ListBooksAction listBooksAction = new ListBooksAction(mockedConsole, booksList);
+		ListBooksAction listBooksAction = new ListBooksAction(mockedConsole, mockedBookList);
 		listBooksAction.execute();
 
-		verify(mockedConsole).println(ListBooksAction.LIST_OF_BOOKS_MSG);
-		verify(mockedConsole).println(FIRST_BOOK);
-		verify(mockedConsole).println(SECOND_BOOK);
+		InOrder inOrder = inOrder(mockedConsole);
+		inOrder.verify(mockedConsole).println(ListBooksAction.LIST_OF_BOOKS_MSG);
+		inOrder.verify(mockedConsole).println(FAKE_BOOK_LIST);
 	}
 
 }

@@ -12,5 +12,13 @@ public class BookList extends ArrayList<Book> {
 		}
 		return false;
 	}
+	
+	public String toString() {
+		String ret = "";
+		for (Book book : this) {
+			ret += book.toString() + "\n";
+		}
+		return ret;
+	}
 
 }
