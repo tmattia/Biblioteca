@@ -14,18 +14,31 @@ public class ReserveBookActionTest {
 	
 	Console mockedConsole;
 	BookList mockedBookList;
-	ReserveBookAction rba;
+	ReserveBookAction reserveBookAction;
+	Authenticator mockedAuthenticator;
 	
 	@Before
 	public void setUp() {
 		mockedConsole = mock(Console.class);
 		mockedBookList = mock(BookList.class);
-		rba = new ReserveBookAction(mockedConsole, mockedBookList);
+		mockedAuthenticator = mock(Authenticator.class);
+		reserveBookAction = new ReserveBookAction(mockedConsole, mockedBookList, mockedAuthenticator);
+	}
+	
+	@Test
+	public void shouldRequireALoggedInUser() {
+		when(mockedAuthenticator.isLoggedIn()).thenReturn(false);
+		
+		reserveBookAction.execute();
+		
+		verify(mockedAuthenticator).requireLogin();
 	}
 
 	@Test
 	public void shouldPromptForBookNumber() {
-		rba.execute();
+		when(mockedAuthenticator.isLoggedIn()).thenReturn(true);
+		
+		reserveBookAction.execute();
 		
 		InOrder inOrder = inOrder(mockedConsole);
 		inOrder.verify(mockedConsole).println(ReserveBookAction.ENTER_BOOK_NUMBER_MSG);
@@ -34,17 +47,19 @@ public class ReserveBookActionTest {
 	
 	@Test
 	public void shouldReserveBookIfBookNumberExists() {
+		when(mockedAuthenticator.isLoggedIn()).thenReturn(true);
 		when(mockedBookList.contains(anyInt())).thenReturn(true);
 		
-		rba.execute();
+		reserveBookAction.execute();
 		
 		verify(mockedConsole).println(ReserveBookAction.BOOK_RESERVED);
 	}
 	
 	public void shouldNotReserveBookIfBookNumberDoesNotExist() {
+		when(mockedAuthenticator.isLoggedIn()).thenReturn(true);
 		when(mockedBookList.contains(anyInt())).thenReturn(false);
 		
-		rba.execute();
+		reserveBookAction.execute();
 		
 		verify(mockedConsole).println(ReserveBookAction.BOOK_NOT_RESERVED);
 	}

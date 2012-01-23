@@ -9,14 +9,20 @@ public class ReserveBookAction implements Action {
 	
 	private Console console;
 	private BookList bookList;
+	private Authenticator authenticator;
 	
-	public ReserveBookAction(Console console, BookList bookList) {
+	public ReserveBookAction(Console console, BookList bookList, Authenticator authenticator) {
 		this.console = console;
 		this.bookList = bookList;
+		this.authenticator = authenticator;
 	}
 
 	@Override
 	public void execute() {
+		if (!authenticator.isLoggedIn()) {
+			authenticator.requireLogin();
+		}
+		
 		console.println(ENTER_BOOK_NUMBER_MSG);
 		int bookNumber = console.readInteger();
 		if (bookList.contains(bookNumber)) {

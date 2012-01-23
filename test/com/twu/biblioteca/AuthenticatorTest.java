@@ -15,14 +15,14 @@ public class AuthenticatorTest {
 	public void shouldBeLoggedInWhenUserIsSet() {
 		User mockedUser = mock(User.class);
 		
-		Authenticator authenticator = new Authenticator(mockedUser);
+		Authenticator authenticator = new Authenticator(mockedUser, null);
 		
 		assertTrue(authenticator.isLoggedIn());
 	}
 	
 	@Test
 	public void shouldNotBeLoggedInWhenUserIsNotSet() {
-		Authenticator authenticator = new Authenticator(null);
+		Authenticator authenticator = new Authenticator(null, null);
 		
 		assertFalse(authenticator.isLoggedIn());
 	}
@@ -34,9 +34,35 @@ public class AuthenticatorTest {
 		User mockedUser = mock(User.class);
 		when(mockedUser.getLibraryNumber()).thenReturn(LIBRARY_NUMBER);
 		
-		Authenticator authenticator = new Authenticator(mockedUser);
+		Authenticator authenticator = new Authenticator(mockedUser, null);
 		
 		assertEquals(LIBRARY_NUMBER, authenticator.getCurrentUserLibraryNumber());
+	}
+	
+	@Test
+	public void shouldBeLoggedInAfterSuccessfulLogin() {
+		User mockedUser = mock(User.class);
+		Login mockedLogin = mock(Login.class);
+		when(mockedLogin.requireLogin()).thenReturn(mockedUser);
+		
+		Authenticator authenticator = new Authenticator(null, mockedLogin);
+		authenticator.requireLogin();
+		
+		assertTrue(authenticator.isLoggedIn());
+	}
+	
+	@Test
+	public void shouldRequireLoginUntilSuccessful() {
+		User mockedUser = mock(User.class);
+		Login mockedLogin = mock(Login.class);
+		when(mockedLogin.requireLogin()).thenReturn(null); // fail
+		when(mockedLogin.requireLogin()).thenReturn(null); // fail
+		when(mockedLogin.requireLogin()).thenReturn(mockedUser); // success
+		
+		Authenticator authenticator = new Authenticator(null, mockedLogin);
+		authenticator.requireLogin();
+		
+		assertTrue(authenticator.isLoggedIn());
 	}
 	
 }

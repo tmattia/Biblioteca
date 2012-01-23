@@ -1,6 +1,9 @@
 package com.twu.biblioteca;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 
@@ -22,6 +25,17 @@ public class UserTest {
 		User user = new User(null, PASSWORD);
 		
 		assertEquals(PASSWORD, user.getPassword());
+	}
+	
+	@Test
+	public void shouldCheckForValidPasswords() {
+		final String VALID_PASSWORD = "valid";
+		final String INVALID_PASSWORD = "invalid";
+		
+		User user = new User(null, VALID_PASSWORD);
+		
+		assertTrue(user.checkPassword(VALID_PASSWORD));
+		assertFalse(user.checkPassword(INVALID_PASSWORD));
 	}
 	
 }

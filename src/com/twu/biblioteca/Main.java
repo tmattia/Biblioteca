@@ -6,8 +6,11 @@ public class Main {
 
 	public static void main(String[] args) throws InvalidRatingScoreException {
 		Console console = new Console();
+		UserList userList = new UserList();
 		User user = new User("111-1111", "password");
-		Authenticator authenticator = new Authenticator(user);
+		userList.add(user);
+		Login login = new Login(console, userList);
+		Authenticator authenticator = new Authenticator(null, login);
 
 		Book book1 = new Book(1, "First Book");
 		Book book2 = new Book(2, "Second Book");
@@ -32,7 +35,7 @@ public class Main {
 		CheckLibraryNumberAction checkLibraryNumberAction = new CheckLibraryNumberAction(console, authenticator);
 		MenuOption checkLibraryNumberOption = new MenuOption(3, "Check Library number", checkLibraryNumberAction);
 		
-		ReserveBookAction reserveBookAction = new ReserveBookAction(console, bookList);
+		ReserveBookAction reserveBookAction = new ReserveBookAction(console, bookList, authenticator);
 		MenuOption reserveBookOption = new MenuOption(4, "Reserve book", reserveBookAction);
 		
 		ArrayList<MenuOption> options = new ArrayList<MenuOption>();
