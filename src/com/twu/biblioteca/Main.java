@@ -18,7 +18,7 @@ public class Main {
 		bookList.add(book1);
 		bookList.add(book2);
 		
-		ListBooksAction listBooksAction = new ListBooksAction(console, bookList);
+		ListRecordsAction listBooksAction = new ListRecordsAction(console, bookList);
 		MenuOption listBooksOption = new MenuOption(1, "List books", listBooksAction);
 		
 		Movie movie1 = new Movie("First Movie", "Director A", new Rating(10));
@@ -29,7 +29,7 @@ public class Main {
 		movieList.add(movie2);
 		movieList.add(movie3);
 		
-		ListMoviesAction listMoviesAction = new ListMoviesAction(console, movieList);
+		ListRecordsAction listMoviesAction = new ListRecordsAction(console, movieList);
 		MenuOption listMoviesOption = new MenuOption(2, "List movies", listMoviesAction);
 		
 		CheckLibraryNumberAction checkLibraryNumberAction = new CheckLibraryNumberAction(console, authenticator);

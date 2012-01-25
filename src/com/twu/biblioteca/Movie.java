@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-public class Movie {
+public class Movie implements Record {
 	
 	static final String RATING_NOT_AVAILABLE_MSG = "N/A";
 	
